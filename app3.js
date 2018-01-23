@@ -29,8 +29,26 @@ if (app.get('env') === 'development') {
 if (app.get('env') === 'production') {
   app.use(errorhandler());
 }
-app.get('/', (request, response) => {
-  response.send('Hello Express');
+// routes
+app.get('/maomao', (request, response) => {
+  response.redirect('/index.html');
+});
+
+app.get('/user/list', (req, res) => { // get user list
+  res.contentType('json');
+  res.send({ title: 'user list' });
+});
+
+app.post('/user/create', (req, res) => { // create user
+  res.contentType('json');
+  res.send({ title: 'user created' });
+});
+
+app.get('/user/read/:id(\\d+)', (req, res) => { // find user & its ID
+  res.contentType('json');
+  res.send({
+    title: `user with id ${req.params.id} found`,
+  });
 });
 /* --------- server config ---------- */
 
