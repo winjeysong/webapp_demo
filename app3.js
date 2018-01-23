@@ -34,20 +34,34 @@ app.get('/maomao', (request, response) => {
   response.redirect('/index.html');
 });
 
-app.get('/user/list', (req, res) => { // get user list
+app.all('/user/*?', (req, res, next) => { // general config for route: /user/...
   res.contentType('json');
+  next();
+});
+
+app.get('/user/list', (req, res) => { // get user list
   res.send({ title: 'user list' });
 });
 
 app.post('/user/create', (req, res) => { // create user
-  res.contentType('json');
   res.send({ title: 'user created' });
 });
 
 app.get('/user/read/:id(\\d+)', (req, res) => { // find user & its ID
-  res.contentType('json');
   res.send({
     title: `user with id ${req.params.id} found`,
+  });
+});
+
+app.get('/user/delete/:id(\\d+)', (req, res) => { // delete user
+  res.send({
+    title: `user with id ${req.params.id} deleted`,
+  });
+});
+
+app.get('/user/update/:id(\\d+)', (req, res) => { // update user
+  res.send({
+    title: `user with id ${req.params.id} updated`,
   });
 });
 /* --------- server config ---------- */
